@@ -346,6 +346,7 @@ var Ticks = React.createClass({
     var scale = props.scale;
     var orientation = props.orient;
     var translate;
+    var x,y,x2,y2,textAnchor;
     // var position = scale(tick);
     // console.log("position",position)
     // var transform = "translate({}, 0)";
@@ -357,15 +358,34 @@ var Ticks = React.createClass({
 
       if (orientation === "bottom" || orientation === "top") {
         translate = "translate({}, 0)".replace("{}", position);
+        x = 0
+        y = 9
+        x2 = 0
+        y2 = 6
+        textAnchor = {textAnchor: "middle"};
       } else {
         translate = "translate(0, {})".replace("{}", position);
+        x = -9
+        y = 0
+        x2 = -6
+        y2 = 0
+        textAnchor = {textAnchor: "end"}
       }
-            
+
+      // <g class="tick" transform="translate(0,432.4202999838718)" style="opacity: 1;">
+      //   <line x2="-6" y2="0"></line>
+      //   <text dy=".32em" x="-9" y="0" style="text-anchor: end;">100</text>
+      // </g>
+
+      // <line x2="6" y2="0" style={{stroke: "rgb(0, 0, 0)"}}></line>
+
       return (
       <g class="tick" transform={translate} style={{opacity: "1"}}>
-        <line y2="6" x2="0" style={{stroke: "rgb(0, 0, 0)"}}></line>
-        <text y="9" x="0" dy=".71em" style={{textAnchor: "middle"}}>{tick}</text>
+        <line y2={y2} x2={x2} style={{stroke: "rgb(0, 0, 0)"}}></line>
+        <text y={y} x={x} dy=".71em" style={textAnchor}>{tick}</text>
       </g>
+
+
       );
     })
     return(
