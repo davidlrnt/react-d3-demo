@@ -349,6 +349,7 @@ var Ticks = React.createClass({
     // var translate = transform.replace("{}", position);
 
     var ticks = tickValues.map(function(tick, index){
+      // PENDING!!!!! condition to translate depending on x or y
       var transform = "translate({}, 0)";
       var position = scale(tick);
       var translate = transform.replace("{}", position);

@@ -80,8 +80,7 @@ var XAxis = React.createClass({
       <g>
         <g className="xAxis" style={styles.test} >
           <AxisLine scale={xScale} orient="bottom" />
-                  <Ticks scale={xScale} orient="left" tickValues={tickValues}/>
-
+          <Ticks scale={xScale} orient="left" tickValues={tickValues}/>
         </g>
       </g>
     );
@@ -91,9 +90,15 @@ var XAxis = React.createClass({
 var YAxis = React.createClass({
   render: function() {
     var yScale = this.props.yScale;
+    var tickValues = yScale.ticks(5)
+
+    console.log("yvalues", tickValues)
     return (
-      <g className="yAxis">
-        <AxisLine scale={yScale} orient="left" />
+      <g>
+        <g className="yAxis" >
+          <AxisLine scale={yScale} orient="left" />
+          <Ticks scale={yScale} orient="left" tickValues={tickValues}/>
+        </g>
       </g>
     );
   }

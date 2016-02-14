@@ -46665,8 +46665,7 @@ var XAxis = React.createClass({displayName: "XAxis",
       React.createElement("g", null, 
         React.createElement("g", {className: "xAxis", style: styles.test}, 
           React.createElement(AxisLine, {scale: xScale, orient: "bottom"}), 
-                  React.createElement(Ticks, {scale: xScale, orient: "left", tickValues: tickValues})
-
+          React.createElement(Ticks, {scale: xScale, orient: "left", tickValues: tickValues})
         )
       )
     );
@@ -46676,9 +46675,15 @@ var XAxis = React.createClass({displayName: "XAxis",
 var YAxis = React.createClass({displayName: "YAxis",
   render: function() {
     var yScale = this.props.yScale;
+    var tickValues = yScale.ticks(5)
+
+    console.log("yvalues", tickValues)
     return (
-      React.createElement("g", {className: "yAxis"}, 
-        React.createElement(AxisLine, {scale: yScale, orient: "left"})
+      React.createElement("g", null, 
+        React.createElement("g", {className: "yAxis"}, 
+          React.createElement(AxisLine, {scale: yScale, orient: "left"}), 
+          React.createElement(Ticks, {scale: yScale, orient: "left", tickValues: tickValues})
+        )
       )
     );
   }
@@ -47141,6 +47146,7 @@ var Ticks = React.createClass({displayName: "Ticks",
     // var translate = transform.replace("{}", position);
 
     var ticks = tickValues.map(function(tick, index){
+      // PENDING!!!!! condition to translate depending on x or y
       var transform = "translate({}, 0)";
       var position = scale(tick);
       var translate = transform.replace("{}", position);
