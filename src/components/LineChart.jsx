@@ -80,7 +80,7 @@ var XAxis = React.createClass({
       <g>
         <g className="xAxis" style={styles.test} >
           <AxisLine scale={xScale} orient="bottom" />
-          <Ticks scale={xScale} orient="left" tickValues={tickValues}/>
+          <Ticks scale={xScale} orient="bottom" tickValues={tickValues}/>
         </g>
       </g>
     );

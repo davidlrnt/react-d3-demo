@@ -341,20 +341,26 @@ React.createClass({
 
 var Ticks = React.createClass({
   render: function(){
-    var tickValues = this.props.tickValues;
-    var scale = this.props.scale;
+    var props = this.props;
+    var tickValues = props.tickValues;
+    var scale = props.scale;
+    var orientation = props.orient;
+    var translate;
     // var position = scale(tick);
     // console.log("position",position)
     // var transform = "translate({}, 0)";
     // var translate = transform.replace("{}", position);
 
     var ticks = tickValues.map(function(tick, index){
-      // PENDING!!!!! condition to translate depending on x or y
-      var transform = "translate({}, 0)";
-      var position = scale(tick);
-      var translate = transform.replace("{}", position);
 
-      console.log("translate",translate)
+      var position = scale(tick);
+
+      if (orientation === "bottom" || orientation === "top") {
+        translate = "translate({}, 0)".replace("{}", position);
+      } else {
+        translate = "translate(0, {})".replace("{}", position);
+      }
+            
       return (
       <g class="tick" transform={translate} style={{opacity: "1"}}>
         <line y2="6" x2="0" style={{stroke: "rgb(0, 0, 0)"}}></line>
