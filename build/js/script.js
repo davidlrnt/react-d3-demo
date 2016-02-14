@@ -46664,9 +46664,10 @@ var XAxis = React.createClass({displayName: "XAxis",
     return (
       React.createElement("g", null, 
         React.createElement("g", {className: "xAxis", style: styles.test}, 
-          React.createElement(AxisLine, {scale: xScale, orient: "bottom"})
-        ), 
-        React.createElement(Ticks, {scale: xScale, orient: "left", tickValues: tickValues})
+          React.createElement(AxisLine, {scale: xScale, orient: "bottom"}), 
+                  React.createElement(Ticks, {scale: xScale, orient: "left", tickValues: tickValues})
+
+        )
       )
     );
   }
@@ -46733,14 +46734,12 @@ var AxisLine =  React.createClass({displayName: "AxisLine",
 var Chart = React.createClass({displayName: "Chart",
   render: function() {
     var dimensions = this.props.dimensions;
-    var css = {
+    var style = {
       transform: "translate("+dimensions.margin.left + "," + dimensions.margin.top +")"
     }
-    var transformX =  {translateX: dimensions.margin.top};
-    var transformY = {translateY: dimensions.margin.left};
     return (
       React.createElement("svg", {width: dimensions.width + dimensions.margin.left + dimensions.margin.right, height: dimensions.height + dimensions.margin.top + dimensions.margin.bottom}, 
-        React.createElement("g", {transform: css.transform, className: "groupInsideSvg"}, 
+        React.createElement("g", {transform: style.transform, className: "groupInsideSvg"}, 
           this.props.children
         )
       )

@@ -80,8 +80,9 @@ var XAxis = React.createClass({
       <g>
         <g className="xAxis" style={styles.test} >
           <AxisLine scale={xScale} orient="bottom" />
+                  <Ticks scale={xScale} orient="left" tickValues={tickValues}/>
+
         </g>
-        <Ticks scale={xScale} orient="left" tickValues={tickValues}/>
       </g>
     );
   }
@@ -148,14 +149,12 @@ var AxisLine =  React.createClass({
 var Chart = React.createClass({
   render: function() {
     var dimensions = this.props.dimensions;
-    var css = {
+    var style = {
       transform: "translate("+dimensions.margin.left + "," + dimensions.margin.top +")"
     }
-    var transformX =  {translateX: dimensions.margin.top};
-    var transformY = {translateY: dimensions.margin.left};
     return (
       <svg width={dimensions.width + dimensions.margin.left + dimensions.margin.right } height={dimensions.height + dimensions.margin.top + dimensions.margin.bottom }>
-        <g transform={css.transform} className="groupInsideSvg">
+        <g transform={style.transform} className="groupInsideSvg">
           {this.props.children}
         </g>
       </svg>
