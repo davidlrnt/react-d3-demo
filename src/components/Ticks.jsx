@@ -337,7 +337,7 @@ React.createClass({
     );
   }
 })
-
+var count = 0
 
 var Ticks = React.createClass({
   render: function(){
@@ -353,7 +353,7 @@ var Ticks = React.createClass({
     // var translate = transform.replace("{}", position);
 
     var ticks = tickValues.map(function(tick, index){
-
+      ++count
       var position = scale(tick);
 
       if (orientation === "bottom" || orientation === "top") {
@@ -378,9 +378,9 @@ var Ticks = React.createClass({
       // </g>
 
       // <line x2="6" y2="0" style={{stroke: "rgb(0, 0, 0)"}}></line>
-
+      console.log("count", count)
       return (
-      <g class="tick" transform={translate} style={{opacity: "1"}}>
+      <g className="tick" key={count} transform={translate} style={{opacity: "1"}}>
         <line y2={y2} x2={x2} style={{stroke: "rgb(0, 0, 0)"}}></line>
         <text y={y} x={x} dy=".71em" style={textAnchor}>{tick}</text>
       </g>

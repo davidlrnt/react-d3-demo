@@ -4,6 +4,8 @@ var React = require('react');
 var _ = require('lodash');
 var d3 = require('d3');
 var Ticks = require('./Ticks.jsx')
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 
 var LineChart = React.createClass({
   getDefaultProps: function() {
@@ -47,19 +49,19 @@ var LineChart = React.createClass({
       .domain([0, max])
       .range([this.props.height, 0]);
 
-    var Lines = _.map(this.props.data, function (data){ return (
-      <DataSeries data={data} size={size} xScale={xScale} yScale={yScale} ref="dataset1" color="cornflowerblue" />
+    var Lines = _.map(this.props.data, function (data, index){ return (
+        <DataSeries key={index} index={index} data={data} size={size} xScale={xScale} yScale={yScale} ref="dataset1" color="red" />
     )})
-    console.log("width",this.props.width )
-    console.log("width + margin", this.props.width + this.props.margin.left + this.props.margin.right)
-    // <Chart width={this.props.width + this.props.margin.left + this.props.margin.right} height={this.props.height}>
+          // <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          // </ReactCSSTransitionGroup> 
 
+    
     return (
-      <Chart dimensions={this.props}>
-        {Lines}
-        <XAxis xScale={xScale} height={this.props.height}/>
-        <YAxis yScale={yScale} />
-      </Chart>
+        <Chart dimensions={this.props}>
+           {Lines}
+          <XAxis xScale={xScale} height={this.props.height}/>
+          <YAxis yScale={yScale} />
+        </Chart>
     );
   }
 });
@@ -75,7 +77,6 @@ var XAxis = React.createClass({
     }
     var xScale = this.props.xScale;
     var tickValues = xScale.ticks(5)
-    console.log(tickValues)
     return (
       <g>
         <g className="xAxis" style={styles.test} >
@@ -92,7 +93,6 @@ var YAxis = React.createClass({
     var yScale = this.props.yScale;
     var tickValues = yScale.ticks(5)
 
-    console.log("yvalues", tickValues)
     return (
       <g>
         <g className="yAxis" >
@@ -103,14 +103,6 @@ var YAxis = React.createClass({
     );
   }
 });
-
-// var Ticks = React.createClass({
-//   render: function(){
-//     return(
-//       <g className="ImaTick"/>
-//     );
-//   }
-// })
 
 var AxisLine =  React.createClass({
   render: function(){
@@ -138,15 +130,15 @@ var AxisLine =  React.createClass({
     }
 
     return(
-        <path
-          className="react-stockcharts-axis-line"
-          shapeRendering="crispEdges"
-          d={d}
-          fill="none"
-          opacity="1"
-          stroke="#000000"
-          strokeWidth="1" >
-        </path>
+      <path
+        className="react-stockcharts-axis-line"
+        shapeRendering="crispEdges"
+        d={d}
+        fill="none"
+        opacity="1"
+        stroke="#000000"
+        strokeWidth="1" >
+      </path>
     );
   }
 });
@@ -191,7 +183,6 @@ var DataSeries = React.createClass({
       interpolate: 'linear'
     }
   },
-
   render: function() {
     var self = this,
         props = this.props,
@@ -204,7 +195,7 @@ var DataSeries = React.createClass({
         .interpolate(this.props.interpolate);
 
     return (
-      <Line path={path(this.props.data)} color={this.props.color} />
+      <Line key={this.props.index} path={path(this.props.data)} color={this.props.color} />
     )
   }
 });
